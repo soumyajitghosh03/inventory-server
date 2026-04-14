@@ -21,9 +21,11 @@ if DATABASE_URL.startswith("postgresql://"):
 # Async Engine
 engine = create_async_engine(
     DATABASE_URL,
-    echo=False,  # turn off in production
-    pool_size=10,
-    max_overflow=20
+    echo=False,
+    connect_args={
+        "ssl": "require",
+        "statement_cache_size": 0
+    }
 )
 
 # Session
